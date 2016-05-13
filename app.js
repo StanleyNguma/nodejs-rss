@@ -18,14 +18,35 @@ var req = http.request(options, (res) => {
 
   switch (responseCode) {
     case 200:
-    console.log(`HEADERS: ${JSON.stringify(res.headers)}`);
+    //console.log(responseCode);
     res.setEncoding('utf8');
     res.on('data', (chunk) => {
-      console.log(`BODY: ${chunk}`);
+      var responseData = JSON.parse(chunk);
+
+      var responseMsg = responseData.message;
+      var responseCode = responseData.data;
+      var respnseResult = responseData.result;
+
+      if (responseCode=='00') {
+        // this is a success
+        console.log('Success');
+        console.log(responseMsg);
+
+      } else {
+        // this is an error
+
+        console.log('Error');
+        console.log(responseMsg);
+
+      }
+
+
     });
     res.on('end', () => {
-      console.log('No more data in response.')
+      console.log('+++++++++++++ End +++++++++++++')
     });
+
+    break;
 
     case 404:
     console.log('Page not found');
