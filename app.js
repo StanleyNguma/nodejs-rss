@@ -1,13 +1,15 @@
 var http = require('http');
-var postData = '{"username":"sasa","password":"Nevada@123"}'
+var postData = '{"username":"sasa","password":"Nevada@123"}';
+
+//postData = JSON.parse(postData);
 
 var options = {
-  hostname: 'countytest.riverbank.co.ke',
+  hostname: 'rss.cnn.com',
   port: 80,
-  path: '/api/mpesa_validation',
-  method: 'POST',
+  path: '/rss/edition.rss',
+  method: 'GET',
   headers: {
-    'Content-Type': 'application/json',
+    'Content-Type': '',
     'Content-Length': postData.length
   }
 };
@@ -21,24 +23,8 @@ var req = http.request(options, (res) => {
     //console.log(responseCode);
     res.setEncoding('utf8');
     res.on('data', (chunk) => {
-      var responseData = JSON.parse(chunk);
 
-      var responseMsg = responseData.message;
-      var responseCode = responseData.data;
-      var respnseResult = responseData.result;
-
-      if (responseCode=='00') {
-        // this is a success
-        console.log('Success');
-        console.log(responseMsg);
-
-      } else {
-        // this is an error
-
-        console.log('Error');
-        console.log(responseMsg);
-
-      }
+      console.log(chunk);
 
 
     });
